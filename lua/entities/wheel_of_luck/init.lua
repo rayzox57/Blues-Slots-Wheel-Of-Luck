@@ -345,7 +345,7 @@ function ENT:GivePlayerCashReward(amount)
 		timer.Simple(4, function()
 			self:StopParticles()
 		end)
-		WOL_CONFIG.onPlayerAddMoney(self.spinner, amount)
+		WOL_CONFIG.addMoney(self.spinner, amount)
 		self.spinner:ChatPrint("Congratulations! You just won "..WOL_CONFIG.showMoney(amount))
 	end
 
