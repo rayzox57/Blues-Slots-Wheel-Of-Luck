@@ -242,7 +242,7 @@ function ENT:Draw()
 			ang:RotateAroundAxis(self:GetAngles():Forward(), ((360 / 20) * (i-1)) + 90 + self.bonusWheelAngle)
 			//Draw the bonus wheel stuff
 			cam.Start3D2D(position, ang, 0.02)
-				draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_BONUS_ITEMS[i].cash), "WOL_Dispaly_Smallest_2", 590,  -4 , Color(0,0,0,255), 2, 1)
+				draw.SimpleText(WOL_CONFIG.showMoney(WOL_BONUS_ITEMS[i].cash), "WOL_Dispaly_Smallest_2", 590,  -4 , Color(0,0,0,255), 2, 1)
 			cam.End3D2D()
 		end
 	end
@@ -391,34 +391,34 @@ local function CreatePayTableUI()
 		surface.DrawTexturedRect(0,0,w,h)
 
 		//draw all the payouts for the items
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.threeBonus), "WOL_Dispaly_Smallest_3", 220,200,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.threeBonus), "WOL_Dispaly_Smallest_3", 220,200,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.twoBonus), "WOL_Dispaly_Smallest_3", 220,238,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.twoBonus), "WOL_Dispaly_Smallest_3", 220,238,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.oneBonus), "WOL_Dispaly_Smallest_3", 220,238 + 46,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.oneBonus), "WOL_Dispaly_Smallest_3", 220,238 + 46,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.threeRaspberry), "WOL_Dispaly_Smallest_3", 220,238 + 46 + 50,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.threeRaspberry), "WOL_Dispaly_Smallest_3", 220,238 + 46 + 50,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.threeCoins), "WOL_Dispaly_Smallest_3", 220,238 + 46 + 50 + 50,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.threeCoins), "WOL_Dispaly_Smallest_3", 220,238 + 46 + 50 + 50,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.twoCoins), "WOL_Dispaly_Smallest_3", 220,238 + 46 + 50 + 50 + 50,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.twoCoins), "WOL_Dispaly_Smallest_3", 220,238 + 46 + 50 + 50 + 50,Color(40,40,40,255), 0, 1)
 
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.threeBar2), "WOL_Dispaly_Smallest_3", 220 + 365,200,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.threeBar2), "WOL_Dispaly_Smallest_3", 220 + 365,200,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.threeBar), "WOL_Dispaly_Smallest_3", 220+ 365,238,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.threeBar), "WOL_Dispaly_Smallest_3", 220+ 365,238,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.threeSeven), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 40,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.threeSeven), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 40,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.threeDiamonds), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 46 + 56,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.threeDiamonds), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 46 + 56,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.twoDiamonds), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 46 + 50 + 52,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.twoDiamonds), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 46 + 50 + 52,Color(40,40,40,255), 0, 1)
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.winning.oneDiamonds), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 46 + 50 + 50 + 46,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.winning.oneDiamonds), "WOL_Dispaly_Smallest_3", 220+ 365,238 + 46 + 50 + 50 + 46,Color(40,40,40,255), 0, 1)
 
 		//Price per spin
 
-		draw.SimpleText(WOL_CONFIG.currencyIcon..comma_value(WOL_CONFIG.pricePerSpin), "WOL_Dispaly_Smallest_3", 212,238 + 46 + 50 + 50 + 50 + 48,Color(40,40,40,255), 0, 1)
+		draw.SimpleText(WOL_CONFIG.showMoney(WOL_CONFIG.pricePerSpin), "WOL_Dispaly_Smallest_3", 212,238 + 46 + 50 + 50 + 50 + 48,Color(40,40,40,255), 0, 1)
 	end
 	f:MakePopup()
 end

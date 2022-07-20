@@ -33,9 +33,20 @@ WOL_CONFIG.jackpotResetMax = 2000000 //2 mill is reasonable consider the rarity 
 //The amount it charges the user to per spin (It does not charge for the bonus spins as they are free)
 WOL_CONFIG.pricePerSpin = 500 
 
-//This is the icon used before displaying money, you can change this but its recomened to keep its leghnth to 1.
-//You can use anything like "P" for point shop or these common one ($, €, £)
-WOL_CONFIG.currencyIcon = "£"
+
+--You can change money Method
+	--DRP = DarkRP Money System
+	--PS1 = PointShop1 Money
+	--PS2 = PointShop2 Money
+	--PPS2 = Premium PointShop2 Money
+	--CSM = Custom Money System (Use all override functions in bottom of this file)
+	--FREE = No Money (Just for fun)
+
+	WOL_CONFIG.Curreny = "PS2"
+
+	--You can change this to anything, or thing. This gets added before any money amount is shown
+	WOL_CONFIG.CurrenyPrefixBefore = ""
+	WOL_CONFIG.CurrenyPrefixAfter = "PTS"
 
 //This is the chances of each item appearing on the reel
 //I tried my best to balance these but of course feel free to change them.
@@ -114,30 +125,101 @@ WOL_AddBonusItem(300000)
 
 //This is a list of ranks that can save machine places, using !saveslots
 WOL_CONFIG.allowedRanks = {
-	"superadmin",
-	"owner"
+	"superadmin"
 }
 
 
-//ADVANCED
+--[[-------------------------------------------------------------------------
+Custom Money Method
+---------------------------------------------------------------------------]]
 
-//If you want to change the currency it uses then you can do so with these two functions.
-//The first checks if the player has enough money and the second one takes the money and the third one gives the money
-//You can change what is inside of these functions incase you want to switch it to pointshop or a custom gamemode currency.
+WOL_CONFIG.custom = {}
 
-//Return try if yes, false if no
-WOL_CONFIG.onCheckIfCanAfford = function(ply, amount)
-	return ply:canAfford(amount)
+WOL_CONFIG.custom.addMoney = function(ply, amount)
+	
 end
 
-//Take what ever currency you are using from the player
-WOL_CONFIG.onPlayerTakeMoney = function(ply, amount)
-	ply:addMoney(amount * -1) //Convert it to a negative number as thats how darkrp works.
+WOL_CONFIG.custom.canAfford = function(ply, amount)
+	return true
 end
 
-//Add the money to the players bank for what ever currency you use.
-WOL_CONFIG.onPlayerAddMoney = function(ply, amount)
-	ply:addMoney(amount)
+WOL_CONFIG.custom.takeMoney = function(ply, amount)
+	
 end
+
+
+--[[-------------------------------------------------------------------------
+Money Method (!! DON'T CHANGE THIS !!)
+---------------------------------------------------------------------------]]
+
+WOL_CONFIG.addMoney = function(ply, amount)
+	local c = WOL_CONFIG.Curreny
+	if(c == "DRP") then
+		ply:addMoney(amount)
+	elseif(c == "PS1") then
+		ply:PS_GivePoints(amount)
+	elseif(c == "PS2") then
+		ply:PS2_AddStandardPoints(amount)
+	elseif(c == "PPS2") then
+		ply:PS2_AddPremiumPoints(amount)
+	elseif(c == "CSM") then
+		WOL_CONFIG.custom.addMoney(ply,amount)
+	end
+end
+
+WOL_CONFIG.canAfford = function(ply, amount)
+	local c = WOL_CONFIG.Curreny
+	if(c == "DRP") then
+		return ply:canAfford(amount)
+	elseif(c == "PS1") then
+		return ply:PS_HasPoints(amount)
+	elseif(c == "PS2") then
+		return ply.PS2_Wallet.points - amount >= 0
+	elseif(c == "PPS2") then
+		return ply.PS2_Wallet.premiumPoints - amount >= 0
+	elseif(c == "CSM") then
+		return WOL_CONFIG.custom.canAfford(ply,amount)
+	end
+	return true
+end
+
+WOL_CONFIG.takeMoney = function(ply, amount)
+	local c = WOL_CONFIG.Curreny
+	if(c == "DRP") then
+		ply:addMoney(amount * -1)
+	elseif(c == "PS1") then
+		ply:PS_TakePoints(amount)
+	elseif(c == "PS2") then
+		ply:PS2_AddStandardPoints(-amount)
+	elseif(c == "PPS2") then
+		ply:PS2_AddPremiumPoints(-amount)
+	elseif(c == "CSM") then
+		WOL_CONFIG.custom.takeMoney(ply,amount)
+	end
+end
+
+WOL_CONFIG.showMoney = function(amount)
+
+	local f = amount
+	while true do   
+	   	f, k = string.gsub(f, "^(-?%d+)(%d%d%d)", '%1,%2')
+	   	if (k==0) then
+			break 
+		end
+	end
+
+	if(WOL_CONFIG.Curreny == "FREE") then f = "0" end
+
+	return string.format("%s%s%s",WOL_CONFIG.CurrenyPrefixBefore,f,WOL_CONFIG.CurrenyPrefixAfter)
+end
+
+
+
+
+
+
+
+
+
 
 //Lastly I guess thanks for the purchase, it helps me so much! I hope you enjoy your addon!

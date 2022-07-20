@@ -90,11 +90,11 @@ end
 //Spins the reels, give cash reward to spinner (player)
 function ENT:Spin()
 	if self:GetBonusSpins() < 1 then
-		if not WOL_CONFIG.onCheckIfCanAfford(self.spinner, WOL_CONFIG.pricePerSpin) then
-			self.spinner:ChatPrint("You cannot afford to use this machine, you need at least "..WOL_CONFIG.currencyIcon..tostring(WOL_CONFIG.pricePerSpin)..".")
+		if not WOL_CONFIG.canAfford(self.spinner, WOL_CONFIG.pricePerSpin) then
+			self.spinner:ChatPrint("You cannot afford to use this machine, you need at least "..WOL_CONFIG.showMoney(WOL_CONFIG.pricePerSpin)..".")
 			return //Dont do anything else.
 		else
-			WOL_CONFIG.onPlayerTakeMoney(self.spinner, WOL_CONFIG.pricePerSpin)
+			WOL_CONFIG.takeMoney(self.spinner, WOL_CONFIG.pricePerSpin)
 			self.spinner.timeSinceLastSpin = CurTime()
 			self.spinner.lastSpunMachine = self
 			self:SetJackpot(self:GetJackpot() + WOL_CONFIG.jackpotIncreasePerSpin)
@@ -234,7 +234,7 @@ function ENT:Spin()
 					self:EndBonus()
 					self:SetSkin(4) //Turn off all lights!
 					for k ,v in pairs(player.GetAll()) do
-						v:ChatPrint("HOLY SMOKES! "..self.spinner:Nick().." JUST WON A CRAZY JACKPOT OF "..WOL_CONFIG.currencyIcon..tostring(self:GetJackpot()).." ON WHEEL OF LUCK!")
+						v:ChatPrint("HOLY SMOKES! "..self.spinner:Nick().." JUST WON A CRAZY JACKPOT OF "..WOL_CONFIG.showMoney(self:GetJackpot()).." ON WHEEL OF LUCK!")
 					end
 					self:TriggerJackpot()
 				end
@@ -346,7 +346,7 @@ function ENT:GivePlayerCashReward(amount)
 			self:StopParticles()
 		end)
 		WOL_CONFIG.onPlayerAddMoney(self.spinner, amount)
-		self.spinner:ChatPrint("Congratulations! You just won "..WOL_CONFIG.currencyIcon..tostring(amount))
+		self.spinner:ChatPrint("Congratulations! You just won "..WOL_CONFIG.showMoney(amount))
 	end
 
 end
