@@ -469,6 +469,9 @@ end
 hook.Add("InitPostEntity", "SpawnWheelOfLuckSlots", function()
 	LoadSlots()
 end)
+hook.Add("PostCleanupMap", "PostCleanupMapWheelOfLuckSlots", function()
+	LoadSlots()
+end)
 
 hook.Add("PlayerSay", "HandleWOLCommands" , function(ply, text)
 	if string.sub(string.lower(text), 1, 12) == "!wheelofluck" then
