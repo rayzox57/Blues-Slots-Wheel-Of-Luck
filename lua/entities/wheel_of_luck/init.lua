@@ -479,7 +479,7 @@ hook.Add("PlayerSay", "HandleWOLCommands" , function(ply, text)
 		net.Send(ply)
 	end
 
-	if string.sub(string.lower(text), 1, 10) == "!saveslots" then
+	if string.sub(string.lower(text), 1, 10) == "!savewof" then
 		if table.HasValue(WOL_CONFIG.allowedRanks, ply:GetUserGroup()) then
 			SaveSlots()
 			ply:ChatPrint("Slot machines have been saved for the map "..game.GetMap().."!")
