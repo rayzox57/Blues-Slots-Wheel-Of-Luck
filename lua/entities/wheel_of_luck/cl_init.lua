@@ -211,7 +211,7 @@ function ENT:Draw()
 	ang = self:GetAngles()
 	position = self:GetPos()
 
-	position = position + (ang:Forward() * 25.4)
+	position = position + (ang:Forward() * 26.4)
 	position = position + (ang:Up() * 90.35)
 	position = position + (ang:Right() * -14.3)
 
